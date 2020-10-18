@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom'
 
 import { Navbar } from './components/Navbar'
-import Sidebar from './components/Sidebar'
+//import Sidebar from './components/MySidebar'
 
 
 import TechPage from './pages/TechPage'
@@ -19,25 +19,14 @@ const App = () => {
     <Router>
       <Navbar />
       <div style={{ display: "flex" }}>
-        <div
-          style={{
-            padding: "10px",
-            width: "20%",
-            higth: "100%"
-          }}
-        >
-      
-        <Sidebar />
-      </div>
        <div style={{ flex: 1, padding: "10px" }}>
-      <Switch>
-
-        <Route exact path="/tech" component={TechPage} />
-        <Route exact path="/life" component={LifePage} />
-        <Route exact path="/aboutUs" component={AboutUs} />
-        <Redirect to="/tech" />
-      </Switch>
-             </div>
+          <Switch>
+            <Route exact path="/tech" component={TechPage} />
+            <Route exact path="/life" component={LifePage} />
+            <Route exact path="/aboutUs" component={AboutUs} />
+            <Redirect to="/tech" />
+          </Switch>
+        </div>
       </div>
     </Router>
   )

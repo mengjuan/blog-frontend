@@ -1,10 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
 
-const TechPage = () => (
-	<section>
-	    <h1>TechPage</h1>
-	    <p>This is the TechPage.</p>
-	</section>
-)
+import { fetchPosts } from '../actions/postsActions'
 
-export default TechPage
+import { Post } from '../components/Post'
+
+const TechPage = ({ dispatch, loading, posts, hasErrors }) => {
+  useEffect(() => {
+    dispatch(fetchPosts())
+  }, [dispatch])
+
+  const renderPosts = () => {
+    if (loading) return <p>Loading posts...</p>
+    if (hasErrors) return <p>Unable to display posts.</p>
+
+    return posts.map(post => <Post key={post.id} post={post} excerpt />)
+  }
+
+  return (
+    <section>
+      <h1>Posts</h1>
+      {renderPosts()}
+    </section>
+  )
+}
+
+const mapStateToProps = state => ({
+  loading: state.posts.loading,
+  posts: state.posts.posts,
+  hasErrors: state.posts.hasErrors,
+})
+
+export default connect(mapStateToProps)(TechPage)
